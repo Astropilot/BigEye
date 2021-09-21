@@ -2,6 +2,8 @@
 FROM php:8.0-apache
 
 EXPOSE 80
+
+RUN mkdir /app
 WORKDIR /app/
 
 # PHP Extensions
@@ -22,7 +24,7 @@ COPY src/ /app/
 
 RUN chown -R www-data:www-data /app/
 
-RUN usermod -u 1000 www-data
+RUN groupmod -g 998 www-data
 
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
