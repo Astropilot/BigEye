@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  bigeye:
+    tty: true
+    build: .
+    volumes:
+      - ./src:/app/
+    ports:
+      - "80:80"
