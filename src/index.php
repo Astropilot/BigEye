@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (isset($_POST['giveup'])) {
+    $_SESSION['giveup_expiration'] = new DateTime();
+    $_SESSION['giveup_expiration']->modify('+2 minutes');
+    echo 'OK';
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +48,7 @@
                 <a href="#" class="btn btn-shadow btn-success mr-4">
                   <i class="fas fa-check mr-2"></i>
                   Let's begin!</a>
-                <button type="button" class="btn btn-shadow btn-outline-danger" data-toggle="modal" data-target="#shameModal">
+                <button type="button" class="btn btn-shadow btn-outline-danger" id="giveupBtn">
                   <i class="fas fa-times mr-2"></i>
                   I give up</button>
               </div>
@@ -57,8 +69,8 @@
     </div>
 
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"
     ></script>
     <script
@@ -71,5 +83,25 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+
+        <?php
+            $now = new DateTime();
+            if (isset($_SESSION['giveup_expiration']) && $now < $_SESSION['giveup_expiration']) {
+        ?>
+        $('#shameModal').modal();
+        <?php
+            }
+        ?>
+
+        $('#giveupBtn').on('click', function () {
+            $.post('/index.php', {giveup: 'yes'}, function (response) {
+                if (response === 'OK') {
+                    $('#shameModal').modal();
+                }
+            });
+        });
+    </script>
   </body>
 </html>
