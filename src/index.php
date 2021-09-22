@@ -4,7 +4,7 @@ session_start();
 if (isset($_POST['giveup'])) {
     $_SESSION['giveup_expiration'] = new DateTime();
     $_SESSION['giveup_expiration']->modify('+2 minutes');
-    echo 'OK';
+    echo $_SESSION['giveup_expiration']->getTimestamp();
     exit();
 }
 
@@ -62,7 +62,8 @@ if (isset($_POST['giveup'])) {
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-body text-mono text-success text-center">
-            <h1>Shame on you!</h1>
+            <h2>Shame on you! As a penalty for your cowardly act you are banned from the site for 2 minutes.</h2>
+            <h3>You will be free in <span id="ban-countdown"></span></h3>
           </div>
         </div>
       </div>
@@ -83,23 +84,37 @@ if (isset($_POST['giveup'])) {
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="vendors/countdown/countdown.min.js"></script>
 
     <script>
+
+        function showBanModal(ban_timestamp) {
+            const counterId = countdown(
+                new Date(ban_timestamp * 1000),
+                function(ts) {
+                    if (ts.value >= 0) {
+                        $('#shameModal').modal('hide');
+                        window.clearInterval(counterId);
+                    }
+                    document.getElementById('ban-countdown').innerHTML = ts.toString();
+                },
+                countdown.MINUTES | countdown.SECONDS
+            );
+            $('#shameModal').modal();
+        }
 
         <?php
             $now = new DateTime();
             if (isset($_SESSION['giveup_expiration']) && $now < $_SESSION['giveup_expiration']) {
         ?>
-        $('#shameModal').modal();
+        showBanModal(<?php echo $_SESSION['giveup_expiration']->getTimestamp() ?>);
         <?php
             }
         ?>
 
         $('#giveupBtn').on('click', function () {
             $.post('/index.php', {giveup: 'yes'}, function (response) {
-                if (response === 'OK') {
-                    $('#shameModal').modal();
-                }
+                showBanModal(parseInt(response, 10));
             });
         });
     </script>
