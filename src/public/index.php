@@ -1,10 +1,14 @@
 <?php
+
+require_once '../app/autoload.php';
+
+use BigEye\ChallengeManager;
+
 session_start();
 
 if (isset($_POST['giveup'])) {
-    $_SESSION['giveup_expiration'] = new DateTime();
-    $_SESSION['giveup_expiration']->modify('+2 minutes');
-    echo $_SESSION['giveup_expiration']->getTimestamp();
+    $ban_expiration = ChallengeManager::getInstance()->banUser();
+    echo $ban_expiration->getTimestamp();
     exit();
 }
 
@@ -13,7 +17,6 @@ if (isset($_POST['giveup'])) {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Big Eye - Security Challenge</title>
@@ -45,7 +48,7 @@ if (isset($_POST['giveup'])) {
             </div>
             <div class="card-footer">
               <div class="text-mono">
-                <a href="#" class="btn btn-shadow btn-success mr-4">
+                <a href="challenge.php" class="btn btn-shadow btn-success mr-4">
                   <i class="fas fa-check mr-2"></i>
                   Let's begin!</a>
                 <button type="button" class="btn btn-shadow btn-outline-danger" id="giveupBtn">
@@ -104,10 +107,10 @@ if (isset($_POST['giveup'])) {
         }
 
         <?php
-            $now = new DateTime();
-            if (isset($_SESSION['giveup_expiration']) && $now < $_SESSION['giveup_expiration']) {
+            $ban_expiration = ChallengeManager::getInstance()->getBanExpirationDate();
+            if ($ban_expiration !== null) {
         ?>
-        showBanModal(<?php echo $_SESSION['giveup_expiration']->getTimestamp() ?>);
+                showBanModal(<?php echo $ban_expiration->getTimestamp() ?>);
         <?php
             }
         ?>
