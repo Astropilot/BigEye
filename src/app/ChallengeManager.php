@@ -5,6 +5,9 @@ namespace BigEye;
 class ChallengeManager {
 
     private const BAN_EXP_KEY = 'giveup_expiration';
+    private const STEP_KEY = 'step';
+
+    private const STEPS_COUNT = 1;
 
     private static $instance = null;
 
@@ -36,5 +39,24 @@ class ChallengeManager {
         $_SESSION[self::BAN_EXP_KEY] = new \DateTime();
         $_SESSION[self::BAN_EXP_KEY]->modify('+2 minutes');
         return $_SESSION[self::BAN_EXP_KEY];
+    }
+
+    public function getCurrentStep() : int {
+        if(!isset($_SESSION[self::STEP_KEY]) || $_SESSION[self::STEP_KEY] < 1 || $_SESSION[self::STEP_KEY] > self::STEPS_COUNT) {
+            $_SESSION[self::STEP_KEY] = 1;
+        }
+        return $_SESSION[self::STEP_KEY];
+    }
+
+    public function nextStep() : void {
+        $step = $this->getCurrentStep();
+
+        $_SESSION[self::STEP_KEY] = $step + 1;
+    }
+
+    public function loadCurrentChallenge() : void {
+        $step = $this->getCurrentStep();
+
+        require_once("challenges/step{$step}/index.php");
     }
 }

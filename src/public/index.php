@@ -48,9 +48,9 @@ if (isset($_POST['giveup'])) {
             </div>
             <div class="card-footer">
               <div class="text-mono">
-                <a href="challenge.php" class="btn btn-shadow btn-success mr-4">
+                <button type="button" class="btn btn-shadow btn-success mr-4" data-toggle="modal" data-target="#rulesModal">
                   <i class="fas fa-check mr-2"></i>
-                  Let's begin!</a>
+                  Let's begin!</button>
                 <button type="button" class="btn btn-shadow btn-outline-danger" id="giveupBtn">
                   <i class="fas fa-times mr-2"></i>
                   I give up</button>
@@ -68,6 +68,49 @@ if (isset($_POST['giveup'])) {
             <h2>Shame on you! As a penalty for your cowardly act you are banned from the site for 2 minutes.</h2>
             <h3>You will be free in <span id="ban-countdown"></span></h3>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rulesModalLabel">Rules</h5>
+            </div>
+            <div class="modal-body text-mono text-success text-center">
+                <h5>Here are the rules of this challenge that you must respect:</h5>
+                <div class="row">
+                    <div class="col-10 offset-1 text-center">
+                        <ul class="list-group">
+                        <li class="list-group-item list-group-item-danger list-group-item-action">
+                            <i class="fas fa-times-circle"></i>
+                            It is forbidden to use site analysis/bruteforce systems, you do not need them to solve this challenge
+                        </li>
+                        <li class="list-group-item list-group-item-danger list-group-item-action">
+                            <i class="fas fa-times-circle"></i>
+                            Sharing solutions for this challenge is prohibited and should not be posted on the internet
+                        </li>
+                        <li class="list-group-item list-group-item-warning list-group-item-action">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            The hints will be available only 5min after the launch of a stage, do not try to get them before by devious means
+                        </li>
+                        <li class="list-group-item list-group-item-info list-group-item-action">
+                            <i class="fas fa-info-circle"></i>
+                            Keep the challenge keys somewhere because if your session expires you will go back to step 1
+                        </li>
+                        <li class="list-group-item list-group-item-success list-group-item-action">
+                            Good luck!
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <a href="challenge.php" class="btn btn-success mr-4">
+                  <i class="fas fa-check mr-2"></i>
+                  I accept the rules</a>
+            </div>
         </div>
       </div>
     </div>
