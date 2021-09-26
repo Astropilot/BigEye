@@ -34,6 +34,7 @@ if (isset($_POST['giveup'])) {
   </head>
 
   <body>
+    <div id="particles-js"></div>
     <div class="container d-flex h-100">
       <div class="row my-auto">
         <div class="col-md-6 offset-md-3 text-center">
@@ -131,8 +132,11 @@ if (isset($_POST['giveup'])) {
       crossorigin="anonymous"
     ></script>
     <script src="vendors/countdown/countdown.min.js"></script>
+    <script src="vendors/particlesjs/particles.min.js"></script>
 
     <script>
+
+        particlesJS.load('particles-js', '/vendors/particlesjs/particlesjs.json');
 
         function showBanModal(ban_timestamp) {
             const counterId = countdown(

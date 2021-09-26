@@ -6,6 +6,8 @@ class ChallengeManager {
 
     private const BAN_EXP_KEY = 'giveup_expiration';
     private const STEP_KEY = 'step';
+    private const HINT_STEP_KEY = 'hint_step';
+    private const HINT_UNLOCK_KEY = 'hint_unlock';
 
     private const STEPS_COUNT = 1;
 
@@ -55,6 +57,22 @@ class ChallengeManager {
     }
 
     public function loadCurrentChallenge() : void {
+        $step = $this->getCurrentStep();
+
+        require_once("challenges/step{$step}/chall_info.php");
+
+        if (!isset($_SESSION[self::HINT_STEP_KEY]) || $_SESSION[self::HINT_STEP_KEY] !== $step) {
+            $_SESSION[self::HINT_STEP_KEY] = $step;
+            $_SESSION[self::HINT_UNLOCK_KEY] = new \DateTime();
+            $_SESSION[self::HINT_UNLOCK_KEY]->modify('+2 minutes');
+        }
+    }
+
+    public function getHintUnlockTime() : \DateTime {
+        return $_SESSION[self::HINT_UNLOCK_KEY];
+    }
+
+    public function displayCurrentChallenge() : void {
         $step = $this->getCurrentStep();
 
         require_once("challenges/step{$step}/index.php");

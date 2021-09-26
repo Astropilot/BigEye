@@ -70,4 +70,5 @@ $loader = new Psr4AutoloaderClass();
 $loader->register();
 
 $loader->addNamespace('BigEye', 'app/');
+$loader->addNamespace('BigEye\Challenge', 'app/');
 $loader->addNamespace('BigEye\Challenges', 'app/challenges/');
