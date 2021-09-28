@@ -60,3 +60,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,visualstudiocode,web
+
+# Cache
+
+/src/app/cache/*
+!/src/app/cache/.gitkeep

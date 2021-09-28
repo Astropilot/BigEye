@@ -12,8 +12,9 @@ RUN apt-get update -qq && \
     git \
     gnupg \
     unzip \
-    zip
-RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql
+    zip \
+    libpq-dev
+RUN docker-php-ext-install -j$(nproc) opcache pdo_pgsql
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache

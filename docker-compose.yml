@@ -1,10 +1,46 @@
 version: '2'
 
 services:
+  bigeyedb:
+      image: postgres:alpine
+      environment:
+        POSTGRES_DB: "bigeye"
+        POSTGRES_PASSWORD: "devpassword"
+      network_mode: bridge
+      volumes:
+        - bigeyedbdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    network_mode: bridge
+    depends_on:
+      - bigeyedb
+    links:
+      - bigeyedb
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=dev@bigeye.io
+      - PGADMIN_DEFAULT_PASSWORD=changemeplease
+      - PGADMIN_LISTEN_PORT=17890
+    ports:
+      - 17891:17890
+    logging:
+      driver: none #json-file
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
   bigeye:
     tty: true
     build: .
+    network_mode: bridge
     volumes:
       - ./src:/app/
     ports:
       - "80:80"
+    depends_on:
+      - bigeyedb
+    links:
+      - bigeyedb
+    env_file:
+     - ./secrets.env
+
+volumes:
+  bigeyedbdata:
+  pgadmindata:

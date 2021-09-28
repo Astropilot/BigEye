@@ -71,4 +71,9 @@ $loader->register();
 
 $loader->addNamespace('BigEye', 'app/');
 $loader->addNamespace('BigEye\Challenge', 'app/');
-$loader->addNamespace('BigEye\Challenges', 'app/challenges/');
+
+$loader->addNamespace('BigEye\Model', 'app/models/');
+$loader->addNamespace('BigEye\Web\Component', 'app/web/components/');
+$loader->addNamespace('BigEye\Web\Router', 'app/web/router/');
+$loader->addNamespace('BigEye\Web\Network', 'app/web/network/');
+$loader->addNamespace('PHPMailer\PHPMailer', 'app/web/phpmailer/');

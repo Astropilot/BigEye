@@ -11,9 +11,11 @@ abstract class ChallengeDifficulty {
 
 abstract class ChallengeType {
     const WEB = 'Web';
-    const CRYPTO = 'Cryptography';
+    const CRYPTO = 'Cryptanalysis';
     const STEG = 'Steganopgraphy';
     const PROG = 'Programmation';
+    const NET = 'Network';
+    const FORENSIC = 'Forensic';
 }
 
 class Challenge {
