@@ -5,6 +5,7 @@ services:
     tty: true
     build: .
     command: npm start -- --host 0.0.0.0 --poll 1000
+
     volumes:
       - ./src:/code/src
     ports:

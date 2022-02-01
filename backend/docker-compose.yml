@@ -26,7 +26,6 @@ services:
       driver: none #json-file
     volumes:
       - pgadmindata:/var/lib/pgadmin
-
   webapi:
     build: .
     tty: true
