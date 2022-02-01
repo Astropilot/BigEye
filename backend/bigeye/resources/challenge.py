@@ -119,7 +119,7 @@ class ChallengeListResource(Resource):
                 if current_app.config['ENV'] == 'development':
                     resource_link = f'http://localhost:8000'
                 else:
-                    resource_link = f'https://api.ctf.codexus.fr'
+                    resource_link = f'https://api.bigeye.codexus.fr'
 
                 resource_link += url_for('static', filename='challenges/' + filename)
 

@@ -109,7 +109,7 @@ class UserListResource(Resource):
         if current_app.config['ENV'] == 'development':
             confirm_link = f'http://localhost:4200/confirm/{email_token}'
         else:
-            confirm_link = f'https://ctf.codexus.fr/confirm/{email_token}'
+            confirm_link = f'https://bigeye.codexus.fr/confirm/{email_token}'
 
         send_mail_html(
                 'BigEye Registration - Confirm Email',
