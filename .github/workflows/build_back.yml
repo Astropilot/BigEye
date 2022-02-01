@@ -1,0 +1,24 @@
+name: Build & Publish WebAPI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-publish:
+    name: Build and Publish WebAPI
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Docker Build Image
+      run: docker build -t docker.pkg.github.com/astropilot/bigeyes/webapi -f backend/Dockerfile backend/.
+
+    - name: Push Image
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u Astropilot --password-stdin docker.pkg.github.com
+        docker push docker.pkg.github.com/astropilot/bigeyes/webapi
