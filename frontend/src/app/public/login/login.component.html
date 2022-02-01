@@ -1,0 +1,50 @@
+<div id="particles-js"></div>
+<div class="container-fluid d-flex justify-content-center h-100">
+  <div class="row w-100 my-auto">
+    <div class="col-sm-12 col-lg-4 offset-lg-4 text-center">
+      <h1 class="display-2 glitch" data-text="Big Eye">Big Eye</h1>
+      <div class="lead mb-3 text-mono text-success">AN ISEP CTF..<span class="vim-caret">.</span></div>
+
+      <div class="card text-center bg-dark text-white">
+        <div class="card-header text-mono">
+          LOG-IN
+        </div>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" [ngClass]="{'was-validated': submitted}">
+            <div class="form-group text-left">
+              <label for="usernameInput">Username</label>
+              <input type="text" class="form-control" id="usernameInput" formControlName="username" [ngClass]="{'is-valid': (username.touched || submitted) && username.valid, 'is-invalid': (username.touched || submitted) && username.invalid}">
+              <div class="invalid-feedback">
+                Please provide a valid username. Only alphabetical letters, numbers and the underscore.
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="passwordInput">Password</label>
+              <input type="password" class="form-control" id="passwordInput" formControlName="password" [ngClass]="{'is-valid': (password.touched || submitted) && password.valid, 'is-invalid': (password.touched || submitted) && password.invalid}">
+              <div class="invalid-feedback">
+                Please provide a valid password.
+              </div>
+            </div>
+            <button
+              id="loginBtn"
+              type="submit"
+              class="btn btn-shadow btn-success text-mono"
+              [disabled]="loading"
+            >
+              <!--<i class="fas fa-sign-in-alt mr-2"></i>-->
+              <fa-icon icon="sign-in-alt"></fa-icon>
+              Log-in
+            </button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <p class="text-mono m-0">
+            Not already registered? <a routerLink="/register">Register now!</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

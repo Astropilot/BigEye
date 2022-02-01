@@ -1,0 +1,57 @@
+.container-fluid {
+  height: 90%;
+}
+
+.difficulte {
+  border-width: 2px;
+  min-width: 12px;
+
+  display: inline-block;
+  border-style: solid;
+  box-sizing: border-box;
+  opacity: 0.75;
+}
+
+.difficulte1 {
+  height: 0.75rem;
+  border-color: rgb(0, 194, 0);
+}
+
+.difficulte1a {
+  background-image: none;
+  background-color: rgb(0, 163, 0);
+  background: #0C0;
+}
+
+.difficulte2 {
+  height: 1rem;
+  border-color: rgb(179, 179, 0);
+}
+
+.difficulte2a {
+  background-image: none;
+  background-color: rgb(204, 204, 0);
+  background: #FF0;
+}
+
+.difficulte3 {
+  height: 1.25rem;
+  border-color: rgb(172, 92, 12);
+}
+
+.difficulte3a {
+  background-image: none;
+  background-color: rgb(178, 95, 12);
+  background: #de770f;
+}
+
+.difficulte4 {
+  height: 1.5rem;
+  border-color: rgb(172, 33, 12);
+}
+
+.difficulte4a {
+  background-image: none;
+  background-color: rgb(178, 34, 12);
+  background: #de2b0f;
+}

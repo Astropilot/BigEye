@@ -1,0 +1,18 @@
+<div class="container justify-content-center text-center" *ngIf="(challengeCategories$ | async) as categories; else loading">
+  <div class="row mt-5 mx-auto">
+    <div class="col-4 mb-5 challenge" *ngFor="let category of categories; let i=index" [routerLink]="category.total_challenges > 0 ? ['/ctf', 'categories', category.id, 'challenges'] : []">
+      <img *ngIf="category.total_challenges > 0 && category.total_challenges_resolved < category.total_challenges" src="assets/images/folder.png" height="80px" alt="">
+      <img *ngIf="category.total_challenges > 0 && category.total_challenges_resolved === category.total_challenges" src="assets/images/folder_valid.png" height="80px" alt="">
+      <img *ngIf="category.total_challenges === 0" src="assets/images/folderLocked.png" height="80px" alt="">
+      <h3>{{ category.name }}</h3>
+      <h5>{{ category.total_challenges_resolved }} / {{ category.total_challenges }} challenge(s) solved</h5>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="col-md-12">
+    <h2 class="title">Loading categories, please wait...</h2>
+    <h4 class="text-muted">If the loading time is abnormally long, please <a routerLink="./categories">reload the page</a>.</h4>
+  </div>
+</ng-template>

@@ -1,0 +1,55 @@
+<div class="container justify-content-center text-center" *ngIf="(user$ | async) as user; else loading">
+  <div class="row w-100 mt-5">
+    <div class="col-12 mx-auto">
+      <div class="card text-center w-100 border-primary">
+        <div class="card-body">
+          <h1>{{ user.username }}</h1>
+          <h4>{{user.total_points_solved }} point(s)</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row w-100 mt-0">
+    <div class="col-6 mx-auto">
+      <div class="card text-center w-100 border-primary">
+        <div class="card-body">
+          <div echarts [options]="solvePercentChartOption" [loading]="true" class="demo-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mx-auto">
+      <div class="card text-center w-100 border-primary">
+        <div class="card-body">
+          <div echarts [options]="categoryBreakdownChartOption" [loading]="true" class="demo-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-hover table-striped table-bordered mt-2">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Challenge</th>
+        <th scope="col">Category</th>
+        <th scope="col">Points earned</th>
+        <th scope="col">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-dark" *ngFor="let challengeResolved of user.challenges_resolved; let i=index">
+        <td class="align-middle"><a class="text-warning" [routerLink]="['/ctf', 'challenges', challengeResolved.challenge.id]">{{ challengeResolved.challenge.title }}</a></td>
+        <td class="align-middle"><a class="text-warning" [routerLink]="['/ctf', 'categories', challengeResolved.challenge.category.id, 'challenges']">{{ challengeResolved.challenge.category.name }}</a></td>
+        <td class="align-middle">{{ challengeResolved.points }}</td>
+        <td class="align-middle">{{ challengeResolved.resolved_at | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<ng-template #loading>
+  <div class="col-md-12">
+    <h2 class="title">Loading user, please wait...</h2>
+    <h4 class="text-muted">If the loading time is abnormally long, please reload the page.</h4>
+  </div>
+</ng-template>

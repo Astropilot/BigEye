@@ -1,0 +1,131 @@
+<div class="container-fluid d-flex mt-5">
+  <div class="row w-100">
+    <div class="col-8">
+      <div class="row w-100">
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-header">
+              <h3 class="text-mono m-0">Create new category</h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="categoryForm" (ngSubmit)="onCategorySubmit()" [ngClass]="{'was-validated': categorySubmitted}">
+                <div class="form-group text-left">
+                  <label for="categoryInput">Category name</label>
+                  <input type="text" class="form-control" id="categoryInput" formControlName="name" [ngClass]="{'is-valid': (categoryName.touched || categorySubmitted) && categoryName.valid, 'is-invalid': (categoryName.touched || categorySubmitted) && categoryName.invalid}">
+                  <div class="invalid-feedback">
+                    Please provide a valid category name. Only alphabetical letters, numbers and the underscore.
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-shadow btn-success text-mono"
+                  [disabled]="loading"
+                >
+                  <fa-icon icon="plus"></fa-icon>
+                  Create category
+                </button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <div *ngIf="categoryError" class="alert alert-danger">{{categoryError}}</div>
+                <div *ngIf="categorySuccess" class="alert alert-success">Category created!</div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="card text-center">
+            <div class="card-header">
+              <h3 class="text-mono m-0">Create new challenge</h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="challengeForm" (ngSubmit)="onChallengeSubmit()" [ngClass]="{'was-validated': challengeSubmitted}">
+                <div class="form-group text-left">
+                  <label for="challengeNameInput">Challenge title</label>
+                  <input type="text" class="form-control" id="challengeNameInput" formControlName="title" [ngClass]="{'is-valid': (challengeTitle.touched || categorySubmitted) && challengeTitle.valid, 'is-invalid': (challengeTitle.touched || categorySubmitted) && challengeTitle.invalid}">
+                  <div class="invalid-feedback">
+                    Please provide a valid challenge title.
+                  </div>
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeDescriptionInput">Challenge description</label>
+                  <input type="text" class="form-control" id="challengeDescriptionInput" formControlName="description" [ngClass]="{'is-valid': (challengeDescription.touched || categorySubmitted) && challengeDescription.valid, 'is-invalid': (challengeDescription.touched || categorySubmitted) && challengeDescription.invalid}">
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeCategoryInput">Challenge category</label>
+                  <select class="custom-select" id="challengeCategoryInput" formControlName="category" *ngIf="(categories$ | async) as categories">
+                    <option *ngFor="let category of categories; let i=index" [value]="category.id">{{ category.name }}</option>
+                  </select>
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeDifficultyInput">Challenge difficulty</label>
+                  <select class="custom-select" id="challengeDifficultyInput" formControlName="difficulty">
+                    <option value="EASY" selected>Easy</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HARD">Hard</option>
+                    <option value="EXTREME">Extreme</option>
+                  </select>
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeFlagInput">Challenge flag</label>
+                  <input type="text" class="form-control" id="challengeFlagInput" formControlName="flag" [ngClass]="{'is-valid': (challengeFlag.touched || categorySubmitted) && challengeFlag.valid, 'is-invalid': (challengeFlag.touched || categorySubmitted) && challengeFlag.invalid}">
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengePointsInput">Challenge points</label>
+                  <input class="form-control" type="number" id="challengePointsInput" formControlName="points" min="1">
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeHintInput">Challenge hint</label>
+                  <input type="text" class="form-control" id="challengeHintInput" formControlName="hint" [ngClass]="{'is-valid': (challengeHint.touched || categorySubmitted) && challengeHint.valid, 'is-invalid': (challengeHint.touched || categorySubmitted) && challengeHint.invalid}">
+                </div>
+                <div class="form-group text-left">
+                  <label >Challenge resource type</label>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" formControlName="resourceType" name="resourceType" id="resourceTypeLink" value="link" checked>
+                    <label class="custom-control-label" for="resourceTypeLink">
+                      An external link
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" formControlName="resourceType" name="resourceType" id="resourceTypeFile" value="file">
+                    <label class="custom-control-label" for="resourceTypeFile">
+                      A file
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group text-left">
+                  <label for="challengeResourceLinkInput">Challenge resource link</label>
+                  <input type="text" class="form-control" id="challengeResourceLinkInput" formControlName="resourceUrl" [ngClass]="{'is-valid': (challengeResourceUrl.touched || categorySubmitted) && challengeResourceUrl.valid, 'is-invalid': (challengeResourceUrl.touched || categorySubmitted) && challengeResourceUrl.invalid}">
+                </div>
+                <div class="form-group text-left">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="challengeResourceFileInput" formControlName="resourceFile" (change)="onFileChange($event)">
+                    <label class="custom-file-label" for="challengeResourceFileInput">Choose challenge resource file</label>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-shadow btn-success text-mono"
+                  [disabled]="loading"
+                >
+                  <fa-icon icon="plus"></fa-icon>
+                  Create challenge
+                </button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <div *ngIf="challengeError" class="alert alert-danger">{{challengeError}}</div>
+                <div *ngIf="challengeSuccess" class="alert alert-success">Challenge created!</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="text-mono m-0">CTF Actions</h3>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+
+</div>

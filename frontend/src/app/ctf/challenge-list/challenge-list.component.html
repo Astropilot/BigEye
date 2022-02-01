@@ -1,0 +1,24 @@
+<div class="container justify-content-center text-center" *ngIf="(challenges$ | async) as challenges; else loading">
+  <div class="row mt-5 challenge" *ngFor="let challenge of challenges; let i=index">
+    <div class="col-6 mx-auto">
+      <div class="card text-center w-100" [ngClass]="{'border-primary': !challenge.is_resolved, 'border-success': challenge.is_resolved}">
+        <div class="card-body">
+          <h4 class="card-title">Challenge - {{ challenge.title }}</h4>
+          <p class="card-text">{{ challenge.points }} point(s)</p>
+          <p *ngIf="challenge.is_resolved" class="card-text">You already solved this challenge!</p>
+          <a *ngIf="challenge.is_resolved === false" [routerLink]="['/ctf', 'challenges', challenge.id]" class="btn btn-primary">Go to challenge!</a>
+        </div>
+        <div class="card-footer text-muted">
+          {{ challenge.difficulty }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="col-md-12">
+    <h2 class="title">Loading challenges, please wait...</h2>
+    <h4 class="text-muted">If the loading time is abnormally long, please reload the page.</h4>
+  </div>
+</ng-template>

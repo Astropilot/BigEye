@@ -1,0 +1,56 @@
+<div class="container-fluid d-flex" *ngIf="(challenge$ | async) as challenge; else loading">
+  <div class="row my-auto w-100">
+  <div class="col-8 offset-2">
+          <div class="card text-center">
+              <div class="card-header">
+                  <div class="row justify-content-between align-items-center">
+                      <div class="ml-2 text-mono">{{ challenge.category.name }}</div>
+                      <h3 class="text-mono m-0">{{ challenge.title }}</h3>
+                      <div class="mr-2">
+                          <span class="difficulte difficulte1" [ngClass]="{'difficulte1a': challenge.difficulty === 'EASY'}" placement="top" title="" ngbTooltip="Difficulty: Easy"></span>
+                          <span class="difficulte difficulte2" [ngClass]="{'difficulte2a': challenge.difficulty === 'MEDIUM'}" placement="top" title="" ngbTooltip="Difficulty: Medium"></span>
+                          <span class="difficulte difficulte3" [ngClass]="{'difficulte3a': challenge.difficulty === 'HARD'}" placement="top" title="" ngbTooltip="Difficulty: Hard"></span>
+                          <span class="difficulte difficulte4" [ngClass]="{'difficulte4a': challenge.difficulty === 'EXTREME'}" placement="top" title="" ngbTooltip="Difficulty: Extreme"></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                <div class="row mb-2" *ngIf="challenge.description !== null">
+                  <div class="col-12">
+                      <p class="text-mono">{{ challenge.description }}</p>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-12">
+                    <a [href]="challenge.resource_link" target="_blank" class="btn btn-primary btn-lg">Start the challenge</a>
+                  </div>
+                </div>
+
+                  <hr>
+                  <div class="row mb-2">
+                      <div class="col-12">
+                          <form class="form-inline justify-content-center needs-validation" id="answerForm" novalidate>
+                              <input type="text" class="form-control" placeholder="Flag here" [formControl]="flag">
+                              <button type="button" class="btn btn-shadow btn-success" (click)="submitFlag()">Submit the flag</button>
+                          </form>
+                      </div>
+                  </div>
+                  <span *ngIf="wrongFlag" class="text-center text-mono text-danger">The flag given is not the right one!</span>
+                  <span *ngIf="successFlag" class="text-center text-mono text-success">Congratulations on finding the flag! Challenge cleared!</span>
+              </div>
+              <div class="card-footer text-muted p-1 text-mono">
+                  <strong><fa-icon icon="lightbulb" class="mr-2"></fa-icon>Need a hint?</strong>
+                  <button class="btn btn-link">Ask for it now!</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="col-md-12">
+    <h2 class="title">Loading challenge, please wait...</h2>
+    <h4 class="text-muted">If the loading time is abnormally long, please reload the page.</h4>
+  </div>
+</ng-template>

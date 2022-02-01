@@ -1,0 +1,23 @@
+<div id="particles-js"></div>
+<div class="container-fluid d-flex justify-content-center h-100">
+  <div class="row w-100 my-auto">
+    <div class="col-sm-12 col-lg-6 offset-lg-3 text-center">
+      <h1 class="display-2 glitch" data-text="Big Eye">Big Eye</h1>
+      <div class="lead mb-3 text-mono text-success">AN ISEP CTF..<span class="vim-caret">.</span></div>
+
+      <div class="card text-center bg-dark text-white">
+        <div class="card-header text-mono">
+          EMAIL CONFIRMATION
+        </div>
+        <div class="card-body">
+          <h1 *ngIf="!valid">An error occurred during the confirmation of your email, try again the link given in the email.</h1>
+          <div *ngIf="valid">
+            <h1>Your account has been valided!</h1>
+
+            <h2>You can now <a routerLink="/login">Sign-In here!</a></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,30 +1,16 @@
+# Editor configuration, see https://editorconfig.org
 root = true
 
-# All Files
 [*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
 trim_trailing_whitespace = true
-insert_final_newline     = true
-indent_style             = space
-end_of_line              = lf
-charset                  = utf-8
-indent_size              = 4
 
-# Markdown Files
+[*.ts]
+quote_type = single
+
 [*.md]
+max_line_length = off
 trim_trailing_whitespace = false
-
-# Web Files
-[*.{htm,html}]
-indent_size              = 2
-max_line_length          = 120
-
-[*.{js,css}]
-indent_size              = 2
-max_line_length          = 80
-
-[*.{yml,json}]
-indent_size              = 2
-
-[*.{inc,php,phpt,xml}]
-indent_size              = 4
-max_line_length          = 80

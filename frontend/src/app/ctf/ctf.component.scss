@@ -1,0 +1,40 @@
+#topBar {
+  border-radius: 0;
+  background-color: #32334a;
+  //clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+  // transform: skewX(35.5deg);
+}
+
+.container-fluid {
+  z-index: 15;
+  // padding-left: 0;
+}
+
+.glitch {
+  font-size: 2em;
+  //display: inline-block;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  //font-size: 1.25rem;
+  //line-height: inherit;
+  //white-space: nowrap;
+}
+
+.navbar-dark .navbar-toggler {
+  color: white !important;
+}
+
+.progress-text {
+  font-weight: 700;
+}
+
+#userLink {
+  text-decoration: none;
+}
+
+#particles-js {
+  position:fixed;
+  width:100%;
+  z-index:-10;
+}

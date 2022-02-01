@@ -1,11 +1,11 @@
-version: '2'
+version: '3.1'
 
 services:
   bigeyedb:
       image: postgres:alpine
       environment:
         POSTGRES_DB: "bigeye"
-        POSTGRES_PASSWORD: "devpassword"
+        POSTGRES_HOST_AUTH_METHOD: "trust"
       network_mode: bridge
       volumes:
         - bigeyedbdata:/var/lib/postgresql/data
@@ -17,7 +17,7 @@ services:
     links:
       - bigeyedb
     environment:
-      - PGADMIN_DEFAULT_EMAIL=dev@bigeye.io
+      - PGADMIN_DEFAULT_EMAIL=dev@codexus.fr
       - PGADMIN_DEFAULT_PASSWORD=changemeplease
       - PGADMIN_LISTEN_PORT=17890
     ports:
@@ -26,20 +26,21 @@ services:
       driver: none #json-file
     volumes:
       - pgadmindata:/var/lib/pgadmin
-  bigeye:
-    tty: true
+
+  webapi:
     build: .
+    tty: true
+    command: python serve.py
     network_mode: bridge
     volumes:
-      - ./src:/app/
+      - .:/app
     ports:
-      - "80:80"
-    depends_on:
-      - bigeyedb
+      - 8000:8000
     links:
       - bigeyedb
-    env_file:
-     - ./secrets.env
+    environment:
+      - FLASK_APP=bigeye
+      - FLASK_ENV=development
 
 volumes:
   bigeyedbdata:

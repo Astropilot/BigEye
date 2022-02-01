@@ -1,0 +1,55 @@
+<div id="particles-js"></div>
+<div class="container-fluid d-flex justify-content-center h-100">
+  <div class="row w-100 my-auto">
+    <div class="col-sm-12 col-lg-4 offset-lg-4 text-center">
+      <h1 class="display-2 glitch" data-text="Big Eye">Big Eye</h1>
+      <div class="lead mb-3 text-mono text-success">AN ISEP CTF..<span class="vim-caret">.</span></div>
+
+      <div class="card text-center bg-dark text-white">
+        <div class="card-header text-mono">
+          REGISTER
+        </div>
+        <div class="card-body">
+          <form id="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()" [ngClass]="{'was-validated': submitted}">
+            <div class="form-group text-left">
+              <label for="usernameInput">Username</label>
+              <input type="text" class="form-control" id="usernameInput" autocapitalize="off" autocorrect="off" formControlName="username" [ngClass]="{'is-valid': (username.touched || submitted) && username.valid, 'is-invalid': (username.touched || submitted) && username.invalid}">
+              <small id="usernameHelp" class="form-text text-muted">Only alphabetical letters, numbers and the underscore. Length between 3 and 20 characters.</small>
+              <div class="invalid-feedback">
+                Please provide a valid username. Only alphabetical letters, numbers and the underscore.
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="emailInput">Email</label>
+              <input type="email" class="form-control" id="emailInput" autocapitalize="off" autocorrect="off" formControlName="email" [ngClass]="{'is-valid': (email.touched || submitted) && email.valid, 'is-invalid': (email.touched || submitted) && email.invalid}">
+              <div class="invalid-feedback">
+                Please provide a valid email.
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="passwordInput">Password</label>
+              <input type="password" class="form-control" id="passwordInput" formControlName="password" [ngClass]="{'is-valid': (password.touched || submitted) && password.valid, 'is-invalid': (password.touched || submitted) && password.invalid}">
+              <small id="passwordHelp" class="form-text text-muted">Minimum 8 characters. Must contain at least one number, one capital letter and one special character among !@#$%^&*_=+-</small>
+              <div class="invalid-feedback">
+                Please provide a valid password.
+              </div>
+            </div>
+            <button
+              id="registerBtn"
+              type="submit"
+              class="btn btn-shadow btn-success text-mono"
+            >
+              <fa-icon icon="plus"></fa-icon>
+              Register
+            </button>
+          </form>
+        </div>
+        <div class="card-footer">
+          <p class="text-mono m-0">
+            Already registered? <a routerLink="/login">Log-In now!</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
